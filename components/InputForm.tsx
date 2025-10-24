@@ -26,9 +26,10 @@ export const InputForm: React.FC<InputFormProps> = ({ onGenerate, isLoading, ima
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const files = Array.from(e.target.files);
+      // FIX: Cast file to File type to resolve type inference issue with e.target.files.
       const newImageFiles = files.map(file => ({
-        file,
-        preview: URL.createObjectURL(file),
+        file: file as File,
+        preview: URL.createObjectURL(file as File),
       }));
       setImageFiles(prev => [...prev, ...newImageFiles]);
     }
